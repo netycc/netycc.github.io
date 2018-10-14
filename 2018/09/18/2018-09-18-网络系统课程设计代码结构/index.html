@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="用于日常笔记"><title>网络实践课程设计——五子棋 | Netycc's blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = 'https://hm.baidu.com/hm.js?' + '83d60cd5e215de54f53db5b26853c623';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+  })();
+  </script></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">网络实践课程设计——五子棋</h1><a id="logo" href="/.">Netycc's blog</a><p class="description">每天进步一点点，吃吃喝喝的single dog.</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">网络实践课程设计——五子棋</h1><div class="post-meta">Sep 18, 2018<span> | </span><span class="category"><a href="/categories/课设记录/">课设记录</a></span></div><div class="post-content"><h2 id="游戏形式"><a href="#游戏形式" class="headerlink" title="游戏形式"></a>游戏形式</h2><p>本游戏是通过socket来进行五子棋游戏，我们的形式是<code>一台server</code>开启之后可以支持尽可能多的<code>客户端</code>运行。</p>
+<h2 id="代码结构"><a href="#代码结构" class="headerlink" title="代码结构"></a>代码结构</h2><ul>
+<li><p><code>server</code></p>
+<ul>
+<li><code>net</code>：socket通信相关功能<ul>
+<li>Action:解析socket传来的指令后进行的执行操作</li>
+<li>EndDeal:游戏结束后的相关处理</li>
+<li>Resolve：对收到的指令（字符串）进行解析处理</li>
+<li>ServerThread：针对多个客户端，开启多个线程支持</li>
+</ul>
+</li>
+<li><code>tool</code><ul>
+<li>FightManager：下棋对战时的相关信息</li>
+<li>HashMapManager：存储对战时配对上的map组合</li>
+<li>MessageManager：用于进行消息管理，包括信息的发送等等</li>
+<li>Player：存储玩家的个人信息</li>
+<li><code>check</code>:进行游戏状态的检测<ul>
+<li>check:检测胜负</li>
+<li>checkX&amp;Y:横纵检测状态</li>
+<li>checkM&amp;N:斜着检测状态</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>ui</code>：ui界面<ul>
+<li>ClientPanel:客户端列表版面</li>
+<li>MatchsPanel：配对连接版面</li>
+<li>MessagePanel：消息显示版面</li>
+<li>ServerFrame：服务器主窗口</li>
+</ul>
+</li>
+<li>Server.java:主程序</li>
+</ul>
+</li>
+<li><p><code>client</code></p>
+<ul>
+<li><code>data</code><ul>
+<li>Data:存储玩家自己的相关信息，包括ID、昵称、配对对象等等</li>
+</ul>
+</li>
+<li><code>image</code>：相关的图片，用于表示棋子等</li>
+<li><code>listener</code>：用于监听相关的操作<ul>
+<li>BackListener：悔棋操作</li>
+<li>ChallengeListener：挑战操作</li>
+<li>ConnectListener：登录操作</li>
+<li>ListListener：列表双击操作</li>
+<li>MapListener：监听棋盘</li>
+<li>MessageListener：监听消息发送</li>
+<li>NameListener：重命名操作</li>
+<li>QuitListener：退出操作</li>
+<li>RestartListener：重新开始操作</li>
+<li>StartListener：游戏开始</li>
+</ul>
+</li>
+<li><code>manager</code><ul>
+<li>IOManager:输入输出流</li>
+<li>ListManager:管理玩家列表</li>
+<li>MessageManager：管理消息</li>
+</ul>
+</li>
+<li><code>net</code><ul>
+<li>Connect：登录服务器</li>
+<li>PlayChess：游戏落字传输</li>
+<li>Receive：接收数据线程</li>
+<li>Resolve：解析数据</li>
+</ul>
+</li>
+<li><code>ui</code><ul>
+<li>ChessBoardCanvas：棋盘画板</li>
+<li>FunctionPanel：功能区</li>
+<li>GameFrame：游戏主界面</li>
+<li>GamePanel：左边游戏区</li>
+<li>MessagePanel：消息面板</li>
+<li>OperationPanel：操作面板</li>
+<li>PlayerPanel：玩家面板</li>
+</ul>
+</li>
+<li>QuinterGame：客户端启动</li>
+</ul>
+</li>
+</ul>
+</div><div class="tags"><a href="/tags/java/">java</a></div><div class="post-nav"><a class="pre" href="/2018/10/04/2018-10-04-《统计学习方法》概论整理/">《统计学习方法》概论整理</a><a class="next" href="/2018/09/16/2018-09-16-MAC_OSX上安装jekyll/">Jekyll框架搭建</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="https://netycc.github.io"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/刷题记录/">刷题记录</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/学习笔记/">学习笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术技巧/">技术技巧</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/课设记录/">课设记录</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/博客/" style="font-size: 15px;">博客</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/机器学习/" style="font-size: 15px;">机器学习</a> <a href="/tags/统计学习方法/" style="font-size: 15px;">统计学习方法</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/笔试/" style="font-size: 15px;">笔试</a> <a href="/tags/ssh配置/" style="font-size: 15px;">ssh配置</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/10/14/更改hexo博客中的Mathjax引擎/">更改hexo博客中的Mathjax引擎</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/13/mac配置ssh免密登录腾讯云服务器/">mac配置ssh免密登录腾讯云服务器</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/04/2018-10-04-《统计学习方法》概论整理/">《统计学习方法》概论整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/18/2018-09-18-网络系统课程设计代码结构/">网络实践课程设计——五子棋</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/16/2018-09-16-MAC_OSX上安装jekyll/">Jekyll框架搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/30/2018华为秋招笔试/">2018华为秋招笔试</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/20/python实践——塔防游戏/">python实践——塔防游戏</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://www.haomwei.com/technology/maupassant-hexo.html" title="博客模板" target="_blank">博客模板</a><ul></ul><a href="https://hyxxsfwy.github.io/2016/01/15/Hexo-Markdown-%E7%AE%80%E6%98%8E%E8%AF%AD%E6%B3%95%E6%89%8B%E5%86%8C/" title="HEXO markdown简明语法" target="_blank">HEXO markdown简明语法</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">Netycc's blog.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
