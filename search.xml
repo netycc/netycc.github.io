@@ -3,7 +3,7 @@
   
     
     <entry>
-      <title>更改hexo博客中的Mathjax引擎</title>
+      <title>更改hexo中的Mathjax引擎</title>
       <link href="/2018/10/14/%E6%9B%B4%E6%94%B9hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E7%9A%84Mathjax%E5%BC%95%E6%93%8E/"/>
       <url>/2018/10/14/%E6%9B%B4%E6%94%B9hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E7%9A%84Mathjax%E5%BC%95%E6%93%8E/</url>
       
@@ -19,7 +19,9 @@
       
         <tags>
             
-            <tag> 博客 </tag>
+            <tag> blog </tag>
+            
+            <tag> Hexo </tag>
             
         </tags>
       
@@ -113,7 +115,9 @@
       
         <tags>
             
-            <tag> 博客 </tag>
+            <tag> Jekyll </tag>
+            
+            <tag> blog </tag>
             
         </tags>
       
