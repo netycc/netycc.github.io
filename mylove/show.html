@@ -132,7 +132,7 @@
             S.Drawing.init('.canvas');
             document.body.classList.add('body--ready');
             //想说的话
-            S.UI.simulate("Hi|杨|靓|靓|I'm|叶|晨|晨|Nice|to|Meet|You|#countdown 3|#time");
+            S.UI.simulate("杨|靓|靓|I'm|叶|晨|晨|Nice|to|Meet|You|#countdown 3|#time");
             S.Drawing.loop(function () {
                 S.Shape.render();
             });
@@ -170,8 +170,8 @@
                 requestFrame.call(window, this.loop.bind(this));
             },
             adjustCanvas: function () {
-                canvas.width = window.innerWidth - 100;
-                canvas.height = window.innerHeight - 30;
+                canvas.width = window.innerWidth - 50;
+                canvas.height = window.innerHeight - 50;
             },
             clearFrame: function () {
                 context.clearRect(0, 0, canvas.width, canvas.height);
